@@ -52,6 +52,7 @@
     <EmbeddedResource Include="Content\random Names with scores.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\BoardGames.xml">

@@ -15,23 +15,21 @@ namespace ScoreBoardEx
         public string SecondName;
         public string GamerTag;
         public int score;
-
         public string GamerTagScore { get { return GamerTag + " ==> "+ score.ToString(); } }
-
         public PlayerData()
         {
         }
         public static PlayerData FromCsv(string csvLine)
         {
             string[] values = csvLine.Split(',');
-            PlayerData dailyValues = new PlayerData();
-            dailyValues.playerid = Guid.NewGuid();
-            dailyValues.FirstName = values[0];
-            dailyValues.SecondName = values[1];
-            dailyValues.GamerTag = values[2];
-            dailyValues.score = Int32.Parse(values[3]);
+            PlayerData playerValues = new PlayerData();
+            playerValues.playerid = Guid.NewGuid();
+            playerValues.FirstName = values[0];
+            playerValues.SecondName = values[1];
+            playerValues.GamerTag = values[2];
+            playerValues.score = Int32.Parse(values[3]);
 
-            return dailyValues;
+            return playerValues;
         }
     }
     // Implement IDisposable to allow using 
@@ -83,14 +81,14 @@ namespace ScoreBoardEx
 
         public XMLContext(string filename) {
             XDocument document = XDocument.Load(@"Content\" + filename);
-            var docs = document.Descendants("boardgame");
-           BoardGames = (from r in document.Descendants("boardgame")
-                        select new Game
-                        {
-                            Id = r.Attribute("objectid").Value,
-                            name = r.Element("name").Value,
-                            year = (r.Element("yearpublished") != null)?Convert.ToInt32(r.Element("yearpublished").Value) : 0
-                        }).ToList();
+            BoardGames = (from r in document.Descendants("boardgame")
+                select new Game
+                {
+                    Id = r.Attribute("objectid").Value,
+                    name = r.Element("name").Value,
+                    year = (r.Element("yearpublished") != null)
+                                ?Convert.ToInt32(r.Element("yearpublished").Value) : 0
+                }).ToList();
 
             
                 }
